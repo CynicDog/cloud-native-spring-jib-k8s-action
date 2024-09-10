@@ -28,6 +28,7 @@ Deploy a Spring Boot application using Minikube on macOS and Windows.
 ```bash
 docker pull cynicdog/cloud-native-spring:latest
 ```
+> You may specify the build platform of image by adding `--platform` tag with the value of `linux/amd64` or `linux/arm64`. 
 
 ## 2. Start `minikube` 
 ```bash
