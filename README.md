@@ -6,6 +6,7 @@
 | Spring Boot | 3.0.0        |
 | Gradle      | 8.10         |
 | Jib         | 3.4.3        |
+| Minikube    | 1.32.0      |
 
 # Local Minikube Deployment Test
 
