@@ -1,10 +1,11 @@
 ## Version Table 
 
-||Version|
-|---------------|------------------|
-| Java          | 20 (Temurin)     |
-| Spring Boot   | 3.0.0           |
-| Gradle        | 8.10             |
+|             |Version|
+|-------------|--------------|
+| Java        | 20 (Temurin) |
+| Spring Boot | 3.0.0        |
+| Gradle      | 8.10         |
+| Jib         | 3.4.3        |
 
 # Local Minikube Deployment Test
 

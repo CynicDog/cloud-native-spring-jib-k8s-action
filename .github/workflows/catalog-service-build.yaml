@@ -1,9 +1,7 @@
-name: Java CI with Gradle
+name: Catalog Service CI with Gradle & Jib
 
 on:
   workflow_dispatch:
-    inputs:
-      architecture:
 
 jobs:
   build:
