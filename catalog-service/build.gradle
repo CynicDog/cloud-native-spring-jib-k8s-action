@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.0'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'com.google.cloud.tools.jib' version '3.4.3'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(20)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = 'eclipse-temurin:20'
+        platforms {
+            platform {
+                os = "linux"
+                architecture = "arm64"
+            }
+            platform {
+                os = "linux"
+                architecture = "amd64"
+            }
+        }
+    }
+    to {
+        image = 'cynicdog/catalog-service'
+        tags = ['latest']
+        auth {
+            username = System.getenv('DOCKERHUB_USERNAME') ?: 'default_username'
+            password = System.getenv('DOCKERHUB_PASSWORD') ?: 'default_password'
+        }
+    }
+}
