@@ -69,4 +69,9 @@ jib {
             password = System.getenv('DOCKERHUB_PASSWORD') ?: 'default_password'
         }
     }
+    container {
+        environment = [
+                'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888'
+        ]
+    }
 }
