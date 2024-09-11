@@ -6,6 +6,7 @@
 | Spring Boot | 3.0.0        |
 | Gradle      | 8.10         |
 | Jib         | 3.4.3        |
+| Minikube    | 1.32.0      |
 
 # Local Minikube Deployment Test
 
@@ -28,6 +29,7 @@ Deploy a Spring Boot application using Minikube on macOS and Windows.
 ```bash
 docker pull cynicdog/cloud-native-spring:latest
 ```
+> You may specify the build platform of image by adding `--platform` tag with the value of `linux/amd64` or `linux/arm64`. 
 
 ## 2. Start `minikube` 
 ```bash
