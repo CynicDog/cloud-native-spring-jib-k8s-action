@@ -36,7 +36,7 @@ docker pull cynicdog/cloud-native-spring:latest
 minikube start
 ```
 
-## 3.1. macOS Steps
+## 3.1. Load the image onto Minikube context (for linux/macOS)
 
 3.1.1. Set Docker to use Minikube’s environment:
 ```bash
@@ -48,7 +48,7 @@ eval $(minikube docker-env)
 minikube image load cynicdog/catalog-service:latest
 ```
 
-## 3.2. Windows Steps
+## 3.2. Load the image onto Minikube context (for Windows)
 
 3.2.1. Save the image as `.tar`:
 ```bash
@@ -60,7 +60,7 @@ docker image save -o catalog-service-image.tar cynicdog/catalog-service:latest
 minikube image load catalog-service-image.tar
 ```
 
-## 4. Shared Steps for Deployment and Service Exposure
+## 4. Deployment and Service Exposure
 
 4.1. Create a deployment:
 ```bash
