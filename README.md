@@ -64,7 +64,7 @@ minikube image load config-service-image.tar
 
 4.1. Create a deployment:
 ```bash
-kubectl create deployment config-service --image=cynicdog/cibfug-service:latest
+kubectl create deployment config-service --image=cynicdog/config-service:latest
 ```
 
 4.2. Expose the service on port 8080:
