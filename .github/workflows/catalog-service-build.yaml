@@ -41,6 +41,17 @@ jobs:
       - name: Build with Gradle
         run: cd catalog-service && ./gradlew build
 
+      # Create JAR file
+      - name: Create JAR file
+        run: cd catalog-service && ./gradlew bootJar
+
+      # Upload the JAR artifact
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: ${{ env.APP_NAME }}-jar
+          path: catalog-service/build/libs/*.jar
+
       # Run tests
       - name: Run tests
         run: cd catalog-service && ./gradlew test
