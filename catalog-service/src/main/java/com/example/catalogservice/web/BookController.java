@@ -27,7 +27,7 @@ public class BookController {
         return bookService.viewBookDetails(isbn);
     }
 
-    // http POST http://localhost:9001/books author="Lyra Silverstar" title="Northern Lights" isbn="1234567891" price=9.90
+    // http POST http://localhost:9001/books author="Lyra Silverstar" title="Northern Lights" isbn="1234567891" price=9.90 publisher="manning"
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Book post(@Valid @RequestBody Book book) {
