@@ -1,36 +1,37 @@
+server:
+  port: 9001
+  tomcat:
+    connection-timeout: 2s
+    keep-alive-timeout: 15s
+    threads:
+      max: 50
+      min-spare: 5
+
 spring:
   application:
-    name: 'catalog-service'
+    name: catalog-service
   config:
     import: "optional:configserver:"
   cloud:
     config:
       uri: http://localhost:8888
-      request-connect-timeout: 5000
-      request-read-timeout: 5000
-      # fail-fast: true
+      request-connect-timeout: 5000 # 5s
+      request-read-timeout: 5000 # 5s
       retry:
-        # default settings
         max-attempts: 6
-        initial-interval: 1000
-        max-interval: 2000
+        initial-interval: 1000 # 1s
+        max-interval: 2000 # 2s
         multiplier: 1.1
   datasource:
     username: cynicdog
     password: cynicdog
-    url: jdbc:postgresql://localhost:5432/polardb_catalog
+    url: jdbc:postgresql://localhost:5433/polardb_catalog
     hikari:
-      connection-timeout: 2000
+      connection-timeout: 2000 #ms
       maximum-pool-size: 5
-
-server:
-  port: 9001
-  tomcat:
-    connection-timeout: 5s
-    keep-alive-timeout: 15s
-    threads:
-      max: 50
-      min-spare: 5
+  sql:
+    init:
+      mode: always
 
 management:
   endpoints:
