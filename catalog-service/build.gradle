@@ -30,6 +30,10 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+bootRun {
+    systemProperty 'spring.profiles.active', 'testdata'
+}
+
 jib {
     from {
         image = 'eclipse-temurin:20'
