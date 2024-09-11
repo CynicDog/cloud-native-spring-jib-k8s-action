@@ -53,9 +53,9 @@ jobs:
           name: ${{ env.APP_NAME }}-jar
           path: catalog-service/build/libs/*.jar
 
-#      # Run tests
-#      - name: Run tests
-#        run: cd catalog-service && ./gradlew test
+      # Run tests
+      - name: Run tests
+        run: cd catalog-service && ./gradlew test
 
       # Log in to DockerHub
       - name: Log in to DockerHub
