@@ -45,39 +45,66 @@ eval $(minikube docker-env)
 
 3.1.2. Load the image into Minikube:
 ```bash
-minikube image load cynicdog/catalog-service:latest
+minikube image load cynicdog/config-service:latest
 ```
 
 ## 3.2. Load the image onto Minikube context (for Windows)
 
 3.2.1. Save the image as `.tar`:
 ```bash
-docker image save -o catalog-service-image.tar cynicdog/catalog-service:latest
+docker image save -o config-service-image.tar cynicdog/config-service:latest
 ```
 
 3.2.2. Load the image into Minikube:
 ```bash
-minikube image load catalog-service-image.tar
+minikube image load config-service-image.tar
 ```
 
 ## 4. Deployment and Service Exposure
 
 4.1. Create a deployment:
 ```bash
-kubectl create deployment catalog-service --image=cynicdog/catalog-service:latest
+kubectl create deployment config-service --image=cynicdog/cibfug-service:latest
 ```
 
 4.2. Expose the service on port 8080:
 ```bash
-kubectl expose deployment catalog-service --port=8080
+kubectl expose deployment config-service --port=8888
 ```
 
 4.3. Forward port 8080 to localhost:8000:
 ```bash
-kubectl port-forward service/catalog-service 8000:8080
+kubectl port-forward service/config-service 7777:8888
 ```
 
 4.4. Test the service:
 ```bash
-http http://localhost:8000/   
+http http://localhost:7777/catalog-service/default   
+```
+You will be seeing the following response: 
+```
+HTTP/1.1 200
+Connection: keep-alive
+Content-Type: application/json
+Date: Wed, 11 Sep 2024 02:12:29 GMT
+Keep-Alive: timeout=15
+Transfer-Encoding: chunked
+
+{
+    "label": null,
+    "name": "catalog-service",
+    "profiles": [
+        "default"
+    ],
+    "propertySources": [
+        {
+            "name": "https://github.com/CynicDog/cloud-native-spring-jib-k8s-action/catalog-service.yml",
+            "source": {
+                "polar.greeting": "(dev) Welcome, greeting message from the configuration server!"
+            }
+        }
+    ],
+    "state": null,
+    "version": "e26f629a82424fe15b098119b1024b74263cfe68"
+}
 ```
