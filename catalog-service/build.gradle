@@ -83,7 +83,8 @@ jib {
     }
     container {
         environment = [
-                'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888'
+                'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
+                'SPRING_DATASOURCE_URL': System.getenv('SPRING_DATASOURCE_URL') ?: 'jdbc:postgresql://localhost:5433/polardb_catalog'
         ]
     }
 }
@@ -93,6 +94,7 @@ bootBuildImage {
     publish = true
     environment = [
             'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
+            'SPRING_DATASOURCE_URL': System.getenv('SPRING_DATASOURCE_URL') ?: 'jdbc:postgresql://localhost:5433/polardb_catalog',
             'BP_JVM_VERSION': '17.*'
     ]
     docker {
