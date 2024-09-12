@@ -14,7 +14,13 @@ docker run -d \
 
 To deploy the containerized database on minikube, run:
 ```
-kubectl run catalog-db --image=postgres:latest --env=POSTGRES_USER=cynicdog --env=POSTGRES_PASSWORD=cynicdog --env=POSTGRES_DB=polardb_catalog --port=5432 --restart=Always
+kubectl run catalog-db \
+    --image=postgres:latest \
+    --env=POSTGRES_USER=cynicdog \
+    --env=POSTGRES_PASSWORD=cynicdog \
+    --env=POSTGRES_DB=polardb_catalog \
+    --port=5432 \
+    --restart=Always
 
 kubectl expose pod catalog-db --port=5432
 ```
