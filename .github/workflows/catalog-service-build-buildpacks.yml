@@ -48,5 +48,5 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
-          SPRING_DATASOURCE_URL: jdbc:postgresql://catalog-db:5433/polardb_catalog
+          SPRING_DATASOURCE_URL: jdbc:postgresql://catalog-db:5432/polardb_catalog
         run: cd catalog-service && ./gradlew bootBuildImage
