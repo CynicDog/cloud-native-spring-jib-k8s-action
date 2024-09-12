@@ -53,11 +53,15 @@ jib {
         }
     }
     to {
-        image = 'cynicdog/config-service'
-        tags = ['latest']
+        image = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/config-service:latest"
         auth {
-            username = System.getenv('DOCKERHUB_USERNAME') ?: 'default_username'
-            password = System.getenv('DOCKERHUB_PASSWORD') ?: 'default_password'
+            username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}" // Ensure username is lowercase
+            password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}" // Use the PAT for password
         }
+    }
+    container {
+        environment = [
+                'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888'
+        ]
     }
 }

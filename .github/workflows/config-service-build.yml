@@ -38,36 +38,14 @@ jobs:
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x configuration-service/gradlew
 
-      # Build the project
-      - name: Build with Gradle
-        run: cd configuration-service && ./gradlew build
-
-      # Create JAR file
-      - name: Create JAR file
-        run: cd configuration-service && ./gradlew bootJar
-
-      # Upload the JAR artifact
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v4.4.0
-        with:
-          name: ${{ env.APP_NAME }}-jar
-          path: configuration-service/build/libs/*.jar
-
       # Run tests
       - name: Run tests
         run: cd configuration-service && ./gradlew test
 
-      # Log in to DockerHub
-      - name: Log in to DockerHub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
       # Build and push Docker image using Jib
       - name: Build and push Docker image
         env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-          GIT_URI: ${{ env.GIT_URI }}
-        run: cd configuration-service && ./gradlew jib
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
+        run: cd catalog-service && ./gradlew jib
