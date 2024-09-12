@@ -75,11 +75,11 @@ jib {
         }
     }
     to {
-        image = 'cynicdog/catalog-service'
+        image = "${System.getenv('GITHUB_REPOSITORY') ?: 'cynicdog/catalog-service'}:latest"
         tags = ['latest']
         auth {
-            username = System.getenv('DOCKERHUB_USERNAME') ?: 'default_username'
-            password = System.getenv('DOCKERHUB_PASSWORD') ?: 'default_password'
+            username = "${System.getenv('GITHUB_ACTOR') ?: 'default_username'}"
+            password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}"
         }
     }
     container {
