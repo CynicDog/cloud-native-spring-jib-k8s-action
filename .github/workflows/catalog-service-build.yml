@@ -67,6 +67,5 @@ jobs:
       # Build and push Docker image using Jib
       - name: Build and push Docker image
         env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
         run: cd catalog-service && ./gradlew jib
