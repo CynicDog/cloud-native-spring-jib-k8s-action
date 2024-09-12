@@ -89,11 +89,11 @@ jib {
 }
 
 bootBuildImage {
-    imageName = "catalog-service-buildpacks"
+    imageName = "catalog-service-buildpacks:latest"
     publish = true
     environment = [
             'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
-            'BP_JVM_VERSION': '17.*'
+            'BP_JVM_VERSION': '20.*'
     ]
     docker {
         publishRegistry {
