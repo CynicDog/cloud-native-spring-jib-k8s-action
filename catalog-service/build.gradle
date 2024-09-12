@@ -75,11 +75,10 @@ jib {
         }
     }
     to {
-        image = "${System.getenv('GITHUB_REPOSITORY') ?: 'cynicdog/catalog-service'}:latest"
-        tags = ['latest']
+        image = "ghcr.io/${System.getenv('GITHUB_REPOSITORY') ?: 'default_repo'}:latest"
         auth {
-            username = "${System.getenv('GITHUB_ACTOR') ?: 'default_username'}"
-            password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}"
+            username = "${System.getenv('GITHUB_ACTOR') ?: 'default_actor'}" // Use GITHUB_ACTOR for the username
+            password = "${System.getenv('GHCR_PAT') ?: 'default_token'}" // Use the PAT for password
         }
     }
     container {
