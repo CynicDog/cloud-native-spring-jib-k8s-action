@@ -75,7 +75,7 @@ jib {
         }
     }
     to {
-        image = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}:latest"
+        image = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/catalog-service:latest"
         auth {
             username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}" // Ensure username is lowercase
             password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}" // Use the PAT for password
