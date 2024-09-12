@@ -89,9 +89,13 @@ jib {
 }
 
 bootBuildImage {
-    imageName = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/catalog-service:latest"
+    imageName = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/catalog-service-buildpacks:latest"
     publish = true
-    environment['SPRING_CLOUD_CONFIG_URI'] = System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888'
+    environment = [
+            'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
+            'BP_JVM_VERSION': '20',
+            'BP_LOG_LEVEL': 'DEBUG'
+    ]
     docker {
         publishRegistry {
             username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}"
