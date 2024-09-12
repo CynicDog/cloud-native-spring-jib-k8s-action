@@ -29,7 +29,8 @@ Deploy a Spring Boot application using Minikube on macOS and Windows.
 ```bash
 docker pull ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/catalog-service:latest
 ```
-> Make sure you clear the previous credentials on `ghcr.io` in your local docker context by runnning `docker logout ghcr.io`. You may specify the build platform of image by adding `--platform` tag with the value of `linux/amd64` or `linux/arm64`. 
+> 1. Make sure you clear the previous credentials on `ghcr.io` in your local docker context by runnning `docker logout ghcr.io`.
+> 2. You may specify the build platform of image by adding `--platform` tag with the value of `linux/amd64` or `linux/arm64`. 
 
 ## 2. Start `minikube` 
 ```bash
