@@ -77,13 +77,25 @@ jib {
     to {
         image = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/catalog-service:latest"
         auth {
-            username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}" // Ensure username is lowercase
-            password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}" // Use the PAT for password
+            username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}"
+            password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}"
         }
     }
     container {
         environment = [
                 'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888'
         ]
+    }
+}
+
+bootBuildImage {
+    imageName = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/catalog-service:latest"
+    publish = true
+    environment['SPRING_CLOUD_CONFIG_URI'] = System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888'
+    docker {
+        publishRegistry {
+            username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}"
+            password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}"
+        }
     }
 }
