@@ -26,7 +26,8 @@ kubectl expose pod catalog-db --port=5432
 ```
 > Make sure the image `postgres:latest` is loaded on minikube context in advance. 
 
-Or you can run `catalog-service` and `catalog-db` service (containerized postgres server) with manifest files all together as below: 
+## Start up `catalog-service` in a declarative way 
+You can run `catalog-service` and `catalog-db` service (containerized postgres server) with manifest files all together as below: 
 ```
 ./src/main/resources/manifest/dev> kubectl apply -f ./
 ```
