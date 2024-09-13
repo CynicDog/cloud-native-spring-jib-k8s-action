@@ -12,7 +12,7 @@ docker run -d \
 ```
 > Use port `5433` on your local machine to avoid conflicts with the existing PostgreSQL instance.
 
-To deploy the containerized database on minikube, run:
+To imperatively deploy the containerized database on minikube, run:
 ```
 kubectl run catalog-db \
     --image=postgres:latest \
@@ -25,3 +25,9 @@ kubectl run catalog-db \
 kubectl expose pod catalog-db --port=5432
 ```
 > Make sure the image `postgres:latest` is loaded on minikube context in advance. 
+
+Or you can run `catalog-service` and `catalog-db` service (containerized postgres server) with manifest files all together as below: 
+```
+./src/main/resources/manifest/dev> kubectl apply -f ./
+```
+> Be sure that you are running the command above in the directory where the manifest files exist. 
