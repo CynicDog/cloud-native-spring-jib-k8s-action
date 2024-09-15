@@ -37,7 +37,8 @@ docker pull ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/catalog-service:
 minikube start
 ```
 
-## 3.1. Load the image onto Minikube context (for linux/macOS)
+## 3.1. (Optional) Load the image onto Minikube context (for linux/macOS)
+> If services are to be deployed declaratively with manifiest files with `IfNotPresent` image pull policy, run `kubectl apply -f ./manifest`. 
 
 3.1.1. Set Docker to use Minikube’s environment:
 ```bash
@@ -61,7 +62,8 @@ docker image save -o config-service-image.tar cynicdog/config-service:latest
 minikube image load config-service-image.tar
 ```
 
-## 4. Deployment and Service Exposure
+## 4. (Optional) Deployment and Service Exposure
+> If services are to be deployed declaratively with manifiest files with `IfNotPresent` image pull policy, run `kubectl apply -f ./manifest`. 
 
 4.1. Create a deployment:
 ```bash
