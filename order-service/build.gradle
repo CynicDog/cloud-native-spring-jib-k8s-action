@@ -40,3 +40,33 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jib {
+	from {
+		image = 'eclipse-temurin:20'
+		platforms {
+			platform {
+				os = "linux"
+				architecture = "arm64"
+			}
+			platform {
+				os = "linux"
+				architecture = "amd64"
+			}
+		}
+	}
+	to {
+		image = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/order-service:latest"
+		auth {
+			username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}"
+			password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}"
+		}
+	}
+	container {
+		environment = [
+				'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
+				'SPRING_R2DBC_URL': System.getenv('SPRING_DATASOURCE_URL') ?: 'r2dbc:postgresql://localhost:5433/polardb_order',
+				'SPRING_FLYWAY_URL': System.getenv('SPRING_FLYWAY_URL') ?: 'jdbc:postgresql://localhost:5433/polardb_order'
+		]
+	}
+}
