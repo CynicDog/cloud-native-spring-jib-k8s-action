@@ -30,7 +30,7 @@ spec:
             - name: SPRING_CLOUD_CONFIG_URI
               value: http://config-service
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://catalog-db/polardb_catalog
+              value: jdbc:postgresql://polar-db/polardb_catalog
             - name: SPRING_PROFILES_ACTIVE
               value: testdata
 ---

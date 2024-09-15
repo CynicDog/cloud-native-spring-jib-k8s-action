@@ -14,7 +14,7 @@ docker run -d \
 
 To imperatively deploy the containerized database on minikube, run:
 ```
-kubectl run catalog-db \
+kubectl run polar-db \
     --image=postgres:latest \
     --env=POSTGRES_USER=cynicdog \
     --env=POSTGRES_PASSWORD=cynicdog \
@@ -22,12 +22,12 @@ kubectl run catalog-db \
     --port=5432 \
     --restart=Always
 
-kubectl expose pod catalog-db --port=5432
+kubectl expose pod polar-db --port=5432
 ```
 > Make sure the image `postgres:latest` is loaded on minikube context in advance. 
 
 ## Start up `catalog-service` in a declarative way 
-You can run `catalog-service` and `catalog-db` service (containerized postgres server) with manifest files all together as below: 
+You can run `catalog-service` and `polar-db` service (containerized postgres server) with manifest files all together as below: 
 ```
 ./src/main/resources/manifest/dev> kubectl apply -f ./
 ```

@@ -12,20 +12,20 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog-db
+  name: polar-db
   labels:
-    db: catalog-db
+    db: polar-db
 spec:
   selector:
     matchLabels:
-      db: catalog-db
+      db: polar-db
   template:
     metadata:
       labels:
-        db: catalog-db
+        db: polar-db
     spec:
       containers:
-        - name: catalog-db
+        - name: polar-db
           image: postgres:latest
           env:
             - name: POSTGRES_USER
@@ -50,13 +50,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalog-db
+  name: polar-db
   labels:
-    db: catalog-db
+    db: polar-db
 spec:
   type: ClusterIP
   selector:
-    db: catalog-db
+    db: polar-db
   ports:
     - protocol: TCP
       port: 5432
