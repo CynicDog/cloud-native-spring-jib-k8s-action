@@ -72,7 +72,7 @@ jib {
 		environment = [
 				'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
 				'SPRING_R2DBC_URL': System.getenv('SPRING_DATASOURCE_URL') ?: 'r2dbc:postgresql://localhost:5433/polardb_order',
-				'SPRING_FLYWAY_URL': System.getenv('SPRING_FLYWAY_URL') ?: 'jdbc:postgresql://localhost:5433/polardb_order'
+				'SPRING_FLYWAY_URL': System.getenv('SPRING_FLYWAY_URL') ?: 'jdbc:postgresql://localhost:5433/polardb_order',
 				'POLAR_CATALOG_SERVICE_URI': System.getenv('POLAR_CATALOG_SERVICE_URI') ?: 'http://localhost:9001'
 		]
 	}
