@@ -22,6 +22,7 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    // http POST :9002/orders isbn=1234567891 quantity=3
     @PostMapping
     public Mono<Order> submitOrder(@RequestBody @Valid OrderRequest orderRequest) {
         return orderService.submitOrder(orderRequest.isbn(), orderRequest.quantity());
