@@ -1,3 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    db: polar-postgres
+data:
+  init.sql: |
+    CREATE DATABASE polardb_catalog;
+    CREATE DATABASE polardb_order;
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,8 +32,6 @@ spec:
               value: cynicdog
             - name: POSTGRES_PASSWORD
               value: cynicdog
-            - name: POSTGRES_DB
-              value: polardb_catalog
           resources:
             requests:
               cpu: 100m
@@ -30,6 +39,13 @@ spec:
             limits:
               cpu: 200m
               memory: 120Mi
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d
+              name: postgres-config-volume
+      volumes:
+        - name: postgres-config-volume
+          configMap:
+            name: postgres-config
 ---
 apiVersion: v1
 kind: Service
