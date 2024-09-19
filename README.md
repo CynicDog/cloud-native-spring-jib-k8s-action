@@ -82,28 +82,37 @@ Once the Ingress is applied, you can retrieve the Minikube IP:
 minikube ip
 ```
 
-Then, access the application via the configured host in your Ingress (e.g., `http://catalog.local`):
+Then, expose the cluster to the local environment:
 ```bash
-http http://catalog.local/catalog-service/default
+minikube tunnel
 ```
 
-You should see a response similar to:
-```json
-{
-    "label": null,
-    "name": "catalog-service",
-    "profiles": [
-        "default"
-    ],
-    "propertySources": [
-        {
-            "name": "https://github.com/CynicDog/cloud-native-spring-jib-k8s-action/catalog-service.yml",
-            "source": {
-                "polar.greeting": "(dev) Welcome, greeting message from the configuration server!"
-            }
-        }
-    ],
-    "state": null,
-    "version": "e26f629a82424fe15b098119b1024b74263cfe68"
-}
+You'll be seeing the following result: 
+```
+http http://127.0.0.1/books
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json
+Date: Thu, 19 Sep 2024 03:30:02 GMT
+Transfer-Encoding: chunked
+X-RateLimit-Burst-Capacity: 20
+X-RateLimit-Remaining: 19
+X-RateLimit-Replenish-Rate: 10
+X-RateLimit-Requested-Tokens: 1
+
+[
+    {
+        "author": "Lyra Silverstar",
+        "createdDate": "2024-09-19T03:24:10.731070Z",
+        "id": 1,
+        "isbn": "1234567891",
+        "lastModifiedDate": "2024-09-19T03:24:10.731070Z",
+        "price": 9.9,
+        "publisher": "Polarsophia",
+        "title": "Northern Lights",
+        "version": 1
+    },
+    ... 
+]
 ```
