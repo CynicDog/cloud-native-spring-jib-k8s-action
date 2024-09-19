@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.3'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'com.google.cloud.tools.jib' version '3.4.3'
 }
 
 group = 'com.example'
@@ -26,6 +27,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-function-context'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'io.projectreactor:reactor-test'
 }
 
 dependencyManagement {
@@ -36,4 +38,32 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = 'eclipse-temurin:20'
+        platforms {
+            platform {
+                os = "linux"
+                architecture = "arm64"
+            }
+            platform {
+                os = "linux"
+                architecture = "amd64"
+            }
+        }
+    }
+    to {
+        image = "ghcr.io/${System.getenv('GITHUB_REPOSITORY')?.toLowerCase() ?: 'default_repo'}/dispatcher-service:latest"
+        auth {
+            username = "${System.getenv('GITHUB_ACTOR')?.toLowerCase() ?: 'default_actor'}"
+            password = "${System.getenv('GITHUB_TOKEN') ?: 'default_token'}"
+        }
+    }
+    container {
+        environment = [
+                'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
+        ]
+    }
 }
