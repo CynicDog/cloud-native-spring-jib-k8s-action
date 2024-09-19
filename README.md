@@ -39,7 +39,7 @@ minikube start --cpus 2 --memory 4g --driver docker
 > Assign compute resources at your need. 
 
 ## 3. Load the Image onto Minikube (Optional) 
-> You may skip this step if services are to be deployed declaratively using manifest files
+> You may skip this step if services are to be deployed declaratively using manifest files.
 
 ### 3.1. For Linux/macOS:
 3.1.1. Set Docker to use Minikube’s environment:
