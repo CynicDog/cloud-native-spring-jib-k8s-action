@@ -72,7 +72,7 @@ minikube addons enable ingress
 
 4.2. Apply the Kubernetes deployment and service manifest:
 ```bash
-kubectl apply -f ./manifest
+kubectl apply -f ./manifest/
 ```
 
 ## 5. Access the Application via Ingress
