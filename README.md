@@ -1,16 +1,16 @@
-## Version Table 
+## Version Table
 
-|             |Version|
-|-------------|--------------|
-| JDK        | 20 (Temurin) |
-| Spring Boot | 3.0.0        |
-| Gradle      | 8.10         |
-| Jib         | 3.4.3        |
-| Minikube    | 1.32.0      |
+|             | Version       |
+|-------------|---------------|
+| JDK         | 20 (Temurin)  |
+| Spring Boot | 3.0.0         |
+| Gradle      | 8.10          |
+| Jib         | 3.4.3         |
+| Minikube    | 1.32.0        |
 
 # Local Minikube Deployment Test
 
-Deploy a Spring Boot application using Minikube on macOS and Windows.
+Deploy a Spring Boot application using Minikube on macOS and Windows with Ingress and manifest files.
 
 ---
 
@@ -29,17 +29,19 @@ Deploy a Spring Boot application using Minikube on macOS and Windows.
 ```bash
 docker pull ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/catalog-service:latest
 ```
-> 1. Make sure you clear the previous credentials on `ghcr.io` in your local docker context by runnning `docker logout ghcr.io`.
-> 2. You may specify the build platform of image by adding `--platform` tag with the value of `linux/amd64` or `linux/arm64`. 
+> 1. Make sure to clear the previous credentials on `ghcr.io` in your local Docker context by running `docker logout ghcr.io`.
+> 2. You may specify the build platform of the image by adding `--platform` tag with the value `linux/amd64` or `linux/arm64`.
 
-## 2. Start `minikube` 
+## 2. Start Minikube
 ```bash
-minikube start
+minikube start --cpus 2 --memory 4g --driver docker
 ```
+> Assign compute resources at your need. 
 
-## 3.1. (Optional) Load the image onto Minikube context (for linux/macOS)
-> If services are to be deployed declaratively with manifiest files with `IfNotPresent` image pull policy, run `kubectl apply -f ./manifest`. 
+## 3. Load the Image onto Minikube (Optional) 
+> You may skip this step if services are to be deployed declaratively using manifest files
 
+### 3.1. For Linux/macOS:
 3.1.1. Set Docker to use Minikube’s environment:
 ```bash
 eval $(minikube docker-env)
@@ -47,52 +49,46 @@ eval $(minikube docker-env)
 
 3.1.2. Load the image into Minikube:
 ```bash
-minikube image load cynicdog/config-service:latest
+minikube image load cynicdog/catalog-service:latest
 ```
 
-## 3.2. Load the image onto Minikube context (for Windows)
-
+### 3.2. For Windows:
 3.2.1. Save the image as `.tar`:
 ```bash
-docker image save -o config-service-image.tar cynicdog/config-service:latest
+docker image save -o catalog-service-image.tar cynicdog/catalog-service:latest
 ```
 
 3.2.2. Load the image into Minikube:
 ```bash
-minikube image load config-service-image.tar
+minikube image load catalog-service-image.tar
 ```
 
-## 4. (Optional) Deployment and Service Exposure
-> If services are to be deployed declaratively with manifiest files with `IfNotPresent` image pull policy, run `kubectl apply -f ./manifest`. 
+## 4. Apply the Manifest Files
 
-4.1. Create a deployment:
+4.1. Enable Ingress on Minikube (if not done already):
 ```bash
-kubectl create deployment config-service --image=cynicdog/config-service:latest
+minikube addons enable ingress
 ```
 
-4.2. Expose the service on port 8080:
+4.2. Apply the Kubernetes deployment and service manifest:
 ```bash
-kubectl expose deployment config-service --port=8888
+kubectl apply -f ./manifest
 ```
 
-4.3. Forward port 8080 to localhost:8000:
+## 5. Access the Application via Ingress
+
+Once the Ingress is applied, you can retrieve the Minikube IP:
 ```bash
-kubectl port-forward service/config-service 7777:8888
+minikube ip
 ```
 
-4.4. Test the service:
+Then, access the application via the configured host in your Ingress (e.g., `http://catalog.local`):
 ```bash
-http http://localhost:7777/catalog-service/default   
+http http://catalog.local/catalog-service/default
 ```
-You will be seeing the following response: 
-```
-HTTP/1.1 200
-Connection: keep-alive
-Content-Type: application/json
-Date: Wed, 11 Sep 2024 02:12:29 GMT
-Keep-Alive: timeout=15
-Transfer-Encoding: chunked
 
+You should see a response similar to:
+```json
 {
     "label": null,
     "name": "catalog-service",
