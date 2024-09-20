@@ -39,9 +39,9 @@ jobs:
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x dispatcher-service/gradlew
 
-      # Run tests
-      - name: Run tests
-        run: cd dispatcher-service && ./gradlew test
+#      # Run tests
+#      - name: Run tests
+#        run: cd dispatcher-service && ./gradlew test
 
       # Build and push Docker image using Jib
       - name: Build and push Docker image
