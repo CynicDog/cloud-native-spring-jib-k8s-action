@@ -10,6 +10,27 @@ spring:
     name: order-service
   lifecycle:
     timeout-per-shutdown-phase: 15s
+  cloud:
+    function:
+      definition: dispatchOrder
+    stream:
+      bindings:
+        dispatchOrder-in-0:
+          destination: order-dispatched
+          group: ${spring.application.name}
+        acceptedOrder-out-0:
+          destination: order-accepted
+      rabbit:
+        bindings:
+          acceptOrder-out-0:
+            producer:
+              transacted: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: cynicdog
+    password: cynicdog
+    connection-timeout: 5s
   r2dbc:
     username: cynicdog
     password: cynicdog
