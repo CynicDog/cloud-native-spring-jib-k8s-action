@@ -1,52 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-service
+  name: dispatcher-service
   labels:
-    app: order-service
+    app: dispatcher-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: order-service
+      app: dispatcher-service
   template:
     metadata:
       labels:
-        app: order-service
+        app: dispatcher-service
     spec:
       containers:
-        - name: order-service
-          image: ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/order-service:latest
+        - name: dispatcher-service
+          image: ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/dispatcher-service:latest
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
               exec:
                 command: [ "sh", "-c", "sleep 5" ]
           ports:
-            - containerPort: 9002
+            - containerPort: 9003
           env:
             - name: BPL_JVM_THREAD_COUNT
               value: "50"
             - name: SPRING_CLOUD_CONFIG_URI
               value: http://config-service
-            - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://polar-db/polardb_order
-            - name: SPRING_PROFILES_ACTIVE
-              value: testdata
             - name: SPRING_RABBITMQ_HOST
               value: polar-rabbitmq
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: order-service
+  name: dispatcher-service
   labels:
-    app: order-service
+    app: dispatcher-service
 spec:
   type: ClusterIP
   selector:
-    app: order-service
+    app: dispatcher-service
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 9002
+      targetPort: 9003

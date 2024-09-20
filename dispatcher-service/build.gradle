@@ -22,7 +22,7 @@ version = '0.0.1-SNAPSHOT'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-    // implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -69,6 +69,7 @@ jib {
     container {
         environment = [
                 'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
+                'SPRING_RABBITMQ_HOST': System.getenv('SPRING_RABBITMQ_HOST') ?: 'localhost'
         ]
     }
 }
