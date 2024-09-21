@@ -9,6 +9,7 @@ jobs:
       APP_NAME: cloud-native-spring
       SPRING_CLOUD_CONFIG_URI: http://config-service:8888
       SPRING_DATA_REDIS_HOST: polar-redis
+      SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI: http://polar-keycloak:80/realms/PolarBookshop
 
     runs-on: ubuntu-latest
 
@@ -51,4 +52,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
           CATALOG_SERVICE_URL: http://catalog-service:80
           ORDER_SERVICE_URL: http://order-service:80
+          SPA_URL: http://polar-ui:80
         run: cd edge-service && ./gradlew jib

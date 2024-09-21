@@ -7,7 +7,7 @@ kubectl exec -it <POD-name> -- /bin/bash
 
 #### 2. Navigate to the CLI script directory and authenticate the session: 
 ```
-cd /opt/keycloakbin
+cd /opt/keycloak/bin
 ./kcadm.sh config credentials \
     --server http://localhost:8080 \
     --realm master \

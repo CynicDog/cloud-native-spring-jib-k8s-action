@@ -29,8 +29,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
     implementation 'org.springframework.session:spring-session-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    // for Apple Silicon
+    runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'
 
     testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -72,7 +77,9 @@ jib {
                 'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
                 'CATALOG_SERVICE_URL': System.getenv('CATALOG_SERVICE_URL') ?: 'http://localhost:9001',
                 'ORDER_SERVICE_URL': System.getenv('ORDER_SERVICE_URL') ?: 'http://localhost:9002',
-                'SPRING_DATA_REDIS_HOST': System.getenv('SPRING_DATA_REDIS_HOST') ?: 'localhost'
+                'SPA_URL': System.getenv('SPA_URL') ?: 'http://localhost:9004',
+                'SPRING_DATA_REDIS_HOST': System.getenv('SPRING_DATA_REDIS_HOST') ?: 'localhost',
+                'SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI': System.getenv('SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI') ?: 'http://localhost:8080/realms/PolarBookshop'
         ]
     }
 }
