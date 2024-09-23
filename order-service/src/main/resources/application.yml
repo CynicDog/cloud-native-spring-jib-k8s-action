@@ -25,6 +25,11 @@ spring:
           acceptOrder-out-0:
             producer:
               transacted: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/PolarBookshop
   rabbitmq:
     host: localhost
     port: 5672

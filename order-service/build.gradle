@@ -15,6 +15,11 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "2023.0.3")
+	set('testKeycloakVersion', "2.3.0")
+}
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
@@ -26,12 +31,15 @@ dependencies {
 	implementation 'org.flywaydb:flyway-database-postgresql'
 	implementation 'org.springframework.retry:spring-retry'
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
 	runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'org.postgresql:r2dbc-postgresql'
 	runtimeOnly 'org.springframework:spring-jdbc'
 
+
+	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
 	testImplementation 'io.projectreactor:reactor-test'
@@ -40,14 +48,12 @@ dependencies {
 	testImplementation 'org.testcontainers:r2dbc'
 	testImplementation 'com.squareup.okhttp3:mockwebserver'
 	testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-stream-test-binder'
+	testImplementation "com.github.dasniko:testcontainers-keycloak:${testKeycloakVersion}"
+
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-}
-
-ext {
-	set('springCloudVersion', "2023.0.3")
 }
 
 dependencyManagement {
@@ -87,6 +93,7 @@ jib {
 				'SPRING_R2DBC_URL': System.getenv('SPRING_DATASOURCE_URL') ?: 'r2dbc:postgresql://localhost:5433/polardb_order',
 				'SPRING_FLYWAY_URL': System.getenv('SPRING_FLYWAY_URL') ?: 'jdbc:postgresql://localhost:5433/polardb_order',
 				'SPRING_RABBITMQ_HOST': System.getenv('SPRING_RABBITMQ_HOST') ?: 'localhost',
+				'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI': System.getenv('SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI') ?: 'http://localhost:8080/realms/PolarBookshop',
 
 				'POLAR_CATALOG_SERVICE_URI': System.getenv('POLAR_CATALOG_SERVICE_URI') ?: 'http://localhost:9001'
 		]

@@ -9,6 +9,7 @@ jobs:
       APP_NAME: cloud-native-spring
       SPRING_CLOUD_CONFIG_URI: http://config-service:8888
       SPRING_RABBITMQ_HOST: polar-rabbitmq
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: http://polar-keycloak/realms/PolarBookshop
 
     runs-on: ubuntu-latest
 

@@ -3,6 +3,8 @@ package com.example.orderservice.order.web;
 import com.example.orderservice.order.domain.Order;
 import com.example.orderservice.order.domain.OrderService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -18,13 +20,13 @@ public class OrderController {
     }
 
     @GetMapping
-    public Flux<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public Flux<Order> getAllOrders(@AuthenticationPrincipal Jwt jwt) {
+        return orderService.getAllOrders(jwt.getSubject());
     }
 
-    // http POST :9002/orders isbn=1234567891 quantity=3
     @PostMapping
     public Mono<Order> submitOrder(@RequestBody @Valid OrderRequest orderRequest) {
         return orderService.submitOrder(orderRequest.isbn(), orderRequest.quantity());
     }
+
 }
