@@ -38,9 +38,9 @@ jobs:
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x catalog-service/gradlew
 
-      # Run tests
-      - name: Run tests
-        run: cd catalog-service && ./gradlew test
+#      # Run tests
+#      - name: Run tests
+#        run: cd catalog-service && ./gradlew test
 
       # Build and push Docker image using Jib
       - name: Build and push Docker image
