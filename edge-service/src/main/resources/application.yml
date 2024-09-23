@@ -44,6 +44,7 @@ spring:
                 fallbackUri: forward:/order-fallback
       default-filters:
         - SaveSession
+        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:
@@ -68,7 +69,7 @@ spring:
           keycloak:
             client-id: edge-service
             client-secret: polar-keycloak-secret
-            scope: openid
+            scope: openid, roles
         provider:
           keycloak:
             issuer-uri: http://localhost:8080/realms/PolarBookshop
