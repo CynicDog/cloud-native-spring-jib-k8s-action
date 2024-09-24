@@ -59,17 +59,17 @@ public class SecurityConfig {
 		return oidcLogoutSuccessHandler;
 	}
 
-	@Bean
-	WebFilter csrfWebFilter() {
-		// Required because of https://github.com/spring-projects/spring-security/issues/5766
-		return (exchange, chain) -> {
-			exchange.getResponse().beforeCommit(() -> Mono.defer(() -> {
-				Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
-				return csrfToken != null ? csrfToken.then() : Mono.empty();
-			}));
-			return chain.filter(exchange);
-		};
-	}
+//	@Bean
+//	WebFilter csrfWebFilter() {
+//		// Required because of https://github.com/spring-projects/spring-security/issues/5766
+//		return (exchange, chain) -> {
+//			exchange.getResponse().beforeCommit(() -> Mono.defer(() -> {
+//				Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
+//				return csrfToken != null ? csrfToken.then() : Mono.empty();
+//			}));
+//			return chain.filter(exchange);
+//		};
+//	}
 
 	@Bean
 	ServerOAuth2AuthorizedClientRepository authorizedClientRepository() {
