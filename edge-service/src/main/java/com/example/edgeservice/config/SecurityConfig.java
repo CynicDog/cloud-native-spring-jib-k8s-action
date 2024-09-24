@@ -1,5 +1,6 @@
 package com.example.edgeservice.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.client.web.server.WebSessionServerOAuth2AuthorizedClientRepository;
 import reactor.core.publisher.Mono;
@@ -19,6 +20,7 @@ import org.springframework.security.web.server.csrf.CookieServerCsrfTokenReposit
 import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.web.server.WebFilter;
 
+@Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
