@@ -125,9 +125,10 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-    volumes:
-      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-  
+    environment:
+      RABBITMQ_DEFAULT_USER: cynicdog
+      RABBITMQ_DEFAULT_PASS: cynicdog
+
   polar-keycloak:
     image: quay.io/keycloak/keycloak:19.0
     container_name: "polar-keycloak"
