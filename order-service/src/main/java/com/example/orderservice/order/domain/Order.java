@@ -5,6 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
 
+@Table("orders")
 public record Order (
 
         @Id
