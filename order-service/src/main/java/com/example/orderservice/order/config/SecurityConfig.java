@@ -8,7 +8,6 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.savedrequest.NoOpServerRequestCache;
 
-// TODO: Webflux gives `An expected CSRF token cannot be found`
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
