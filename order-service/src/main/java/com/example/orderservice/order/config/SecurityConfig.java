@@ -17,6 +17,8 @@ public class SecurityConfig {
 
         return http
                 .authorizeExchange(exchange -> exchange
+                        .pathMatchers("/actuator/**")
+                            .permitAll()
                         .anyExchange()
                         .authenticated())
                 .oauth2ResourceServer(oAuth2ResourceServerSpec ->
