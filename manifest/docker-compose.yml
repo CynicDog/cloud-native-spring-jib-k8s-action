@@ -5,6 +5,8 @@ services:
 
   catalog-service:
     depends_on:
+      - fluent-bit
+      - polar-keycloak
       - polar-postgres
     image: "ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/catalog-service:latest"
     container_name: "catalog-service"
@@ -28,6 +30,8 @@ services:
 
   order-service:
     depends_on:
+      - fluent-bit
+      - polar-keycloak
       - polar-postgres
       - polar-rabbitmq
     image: "ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/order-service:latest"
@@ -48,6 +52,7 @@ services:
 
   dispatcher-service:
     depends_on:
+      - fluent-bit
       - polar-rabbitmq
     image: "ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/dispatcher-service:latest"
     container_name: dispatcher-service
@@ -63,6 +68,7 @@ services:
   
   edge-service:
     depends_on:
+      - fluent-bit
       - polar-keycloak
       - polar-redis
       - polar-ui
@@ -83,6 +89,8 @@ services:
       - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI=http://host.docker.internal:8080/realms/PolarBookshop
   
   config-service:
+    depends_on:
+      - fluent-bit
     image: "ghcr.io/cynicdog/cloud-native-spring-jib-k8s-action/config-service:latest"
     container_name: "config-service"
     ports:
@@ -96,6 +104,8 @@ services:
       - BPL_DEBUG_PORT=9888
 
   polar-ui:
+    depends_on:
+      - fluent-bit
     image: "ghcr.io/polarbookshop/polar-ui:v1"
     container_name: "polar-ui"
     ports:
@@ -147,6 +157,7 @@ services:
     container_name: grafana
     depends_on:
       - loki
+      - prometheus
     ports:
       - "3000:3000"
     environment:
