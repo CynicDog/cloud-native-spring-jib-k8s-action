@@ -39,7 +39,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh
+        include: health
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
 
 polar:
   greeting: Welcome to the local book catalog!
