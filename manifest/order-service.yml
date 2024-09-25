@@ -22,6 +22,18 @@ spec:
             preStop:
               exec:
                 command: [ "sh", "-c", "sleep 5" ]
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 9001
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 9001
+            initialDelaySeconds: 5
+            periodSeconds: 15
           ports:
             - containerPort: 9002
           env:
@@ -35,6 +47,8 @@ spec:
               value: testdata
             - name: SPRING_RABBITMQ_HOST
               value: polar-rabbitmq
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+              value: http://polar-keycloak/realms/PolarBookshop
 ---
 apiVersion: v1
 kind: Service

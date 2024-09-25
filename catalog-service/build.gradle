@@ -99,7 +99,7 @@ bootBuildImage {
     environment = [
             'SPRING_CLOUD_CONFIG_URI': System.getenv('SPRING_CLOUD_CONFIG_URI') ?: 'http://localhost:8888',
             'SPRING_DATASOURCE_URL': System.getenv('SPRING_DATASOURCE_URL') ?: 'jdbc:postgresql://localhost:5433/polardb_catalog',
-            'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI': System.getenv('SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI') ?: 'http://localhost:8080/realms/PolarBookshop',
+            'SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI': System.getenv('SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI') ?: 'http://localhost:8080/realms/PolarBookshop',
             'BP_JVM_VERSION': '17.*'
     ]
     docker {
