@@ -34,10 +34,11 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
-	runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'org.postgresql:r2dbc-postgresql'
 	runtimeOnly 'org.springframework:spring-jdbc'
+	runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'
+	runtimeOnly 'io.github.resilience4j:resilience4j-micrometer'
 
 
 	testImplementation 'org.springframework.security:spring-security-test'

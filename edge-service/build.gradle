@@ -34,6 +34,8 @@ dependencies {
 
     // for Apple Silicon
     runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    runtimeOnly 'io.github.resilience4j:resilience4j-micrometer'
 
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.springframework.security:spring-security-test'
