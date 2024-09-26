@@ -25,8 +25,8 @@ services:
       - SPRING_PROFILES_ACTIVE=testdata
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://host.docker.internal:8080/realms/PolarBookshop
       - JAVA_TOOL_OPTIONS=-javaagent:/opentelemetry-javaagent.jar
-      - OTEL_SERVICE_NAME=config-service
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+      - OTEL_SERVICE_NAME=catalog-service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4318
       - OTEL_METRICS_EXPORTER=none
     logging:
       driver: fluentd
@@ -57,8 +57,8 @@ services:
       - SPRING_RABBITMQ_HOST=polar-rabbitmq
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://host.docker.internal:8080/realms/PolarBookshop
       - JAVA_TOOL_OPTIONS=-javaagent:/opentelemetry-javaagent.jar
-      - OTEL_SERVICE_NAME=config-service
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+      - OTEL_SERVICE_NAME=order-service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4318
       - OTEL_METRICS_EXPORTER=none
     logging:
       driver: fluentd
@@ -83,8 +83,8 @@ services:
       - SPRING_CLOUD_CONFIG_URI=http://config-service:8888
       - SPRING_RABBITMQ_HOST=polar-rabbitmq
       - JAVA_TOOL_OPTIONS=-javaagent:/opentelemetry-javaagent.jar
-      - OTEL_SERVICE_NAME=config-service
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+      - OTEL_SERVICE_NAME=dispatcher-service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
       - OTEL_METRICS_EXPORTER=none
     logging:
       driver: fluentd
@@ -115,8 +115,8 @@ services:
       - SPRING_REDIS_HOST=polar-redis
       - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI=http://host.docker.internal:8080/realms/PolarBookshop
       - JAVA_TOOL_OPTIONS=-javaagent:/opentelemetry-javaagent.jar
-      - OTEL_SERVICE_NAME=config-service
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4317
+      - OTEL_SERVICE_NAME=edge-service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4318
       - OTEL_METRICS_EXPORTER=none
     logging:
       driver: fluentd
@@ -232,12 +232,13 @@ services:
     volumes:
       - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
+  # TODO: [OkHttp http://host.docker.internal:4318/...] WARN io.opentelemetry.exporter.internal.http.HttpExporter - Failed to export logs. Server responded with HTTP status code 404. Error message: Unable to parse response body, HTTP status message: Not Found
   tempo:
-    image: grafana/tempo:1.5.0
+    image: grafana/tempo
     container_name: tempo
     command: -config.file /etc/tempo-config.yml
     ports:
       - "3110:3100"     # Tempo
-      - "4317:4317"     # OTel
+      - "4318:4318"     # OTel
     volumes:
       - ./observability/tempo/tempo.yml:/etc/tempo-config.yml
