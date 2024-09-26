@@ -20,19 +20,23 @@ repositories {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
+ext {
+    set('springCloudVersion', "2023.0.3")
+    set('otelVersion', "1.17.0")
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-stream-binder-rabbit'
 
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-stream-test-binder'
-}
-
-ext {
-    set('springCloudVersion', "2023.0.3")
 }
 
 dependencyManagement {

@@ -85,11 +85,19 @@ spring:
     redis:
       namespace: polar:edge
 
+logging:
+  group:
+    circuitbreaker: io.github.resilience4j, org.springframework.cloud.circuitbreaker
+  level:
+    circuitbreaker: info
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
 management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: configprops, env, gateway, health, heapdump, info, loggers, mappings, prometheus
   endpoint:
     health:
       show-details: always
@@ -99,6 +107,13 @@ management:
       group:
         readiness:
           include: readinessState,redis
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+    os:
+      enabled: true
   metrics:
     tags:
       application: ${spring.application.name}
