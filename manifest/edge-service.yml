@@ -37,6 +37,10 @@ spec:
               value: http://catalog-service:80
             - name: ORDER_SERVICE_URL
               value: http://order-service:80
+            - name: SPRING_REDIS_HOST
+              value: polar-redis
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
+              value: http://polar-keycloak/realms/PolarBookshop
 ---
 apiVersion: v1
 kind: Service

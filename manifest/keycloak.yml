@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: polar-keycloak
+  labels:
+    app: polar-keycloak
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: polar-keycloak
@@ -15,24 +16,40 @@ spec:
       containers:
         - name: polar-keycloak
           image: quay.io/keycloak/keycloak:19.0
-          args: ["start-dev"]
+          args:
+            - "start-dev"
           ports:
             - containerPort: 8080
           env:
             - name: KEYCLOAK_ADMIN
-              value: "cynicdog"
+              value: cynicdog
             - name: KEYCLOAK_ADMIN_PASSWORD
-              value: "cynicdog"
+              value: cynicdog
+          readinessProbe:
+            httpGet:
+              path: /realms/master
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 350Mi
+            limits:
+              cpu: 500m
+              memory: 750Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: polar-keycloak
+  labels:
+    app: polar-keycloak
 spec:
+  type: ClusterIP
   selector:
     app: polar-keycloak
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8080
-  type: ClusterIP
